@@ -1,0 +1,18 @@
+// app.scss
+
+// Required
+@import "ember-bootstrap/bootstrap/variables";
+@import "ember-bootstrap/bootstrap/mixins";
+
+// Optional - Bootstrapping/Resetting
+@import "ember-bootstrap/bootstrap/normalize";
+@import "ember-bootstrap/bootstrap/print";
+
+// Optional - Everything else
+@import "ember-bootstrap/bootstrap/scaffolding";
+@import "ember-bootstrap/bootstrap/type";
+@import "ember-bootstrap/bootstrap/buttons";
+
+@import "pods";
+
+@import "ember-bootstrap/bootstrap";

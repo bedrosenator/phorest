@@ -1,0 +1,27 @@
+import DS from 'ember-data';
+
+export default DS.Model.extend({
+    address: DS.attr(),
+    archived: DS.attr('boolean'),
+    banned: DS.attr('boolean'),
+    birthDate: DS.attr('string'),
+    clientId: DS.attr('string'),
+    clientSince: DS.attr('string'),
+    creatingBranchId: DS.attr('string'),
+    creditAccount: DS.attr(),
+    email: DS.attr('string'),
+    emailMarketingConsent: DS.attr('boolean'),
+    emailReminderConsent: DS.attr('boolean'),
+    firstName: DS.attr('string'),
+    gender: DS.attr('string'),
+    landLine: DS.attr('string'),
+    lastName: DS.attr('string'),
+    links: DS.attr(),
+    mobile: DS.attr('string'),
+    notes: DS.attr('string'),
+    photoUrl: DS.attr('string'),
+    preferredStaffId: DS.attr('string'),
+    smsMarketingConsent: DS.attr('boolean'),
+    smsReminderConsent: DS.attr('boolean'),
+    version: DS.attr('number'),
+});

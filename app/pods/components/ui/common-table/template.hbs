@@ -1,0 +1,71 @@
+{{#models-table
+  data=data
+  columns=columns
+  useNumericPagination=true
+  pageSize=pageSize
+  metaItemsCountProperty=metaItemsCountProperty
+  metaPagesCountProperty=metaPagesCountProperty
+  pageSizeValues=pageSizeValues
+  useFilteringByColumns=false
+  columnComponents=columnComponents
+as |mt|
+}}
+
+  {{#if mt.isLoading}}
+    <div class="overlay">
+      <p><i class="glyphicon glyphicon-refresh"></i></p>
+    </div>
+  {{/if}}
+
+  {{mt.table}}
+
+  {{#table.body as |body|}}
+    {{#each body.visibleContent as |record index|}}
+      {{#body.row
+        record=record
+        index=index as |row|
+      }}
+        {{#each row.visibleProcessedColumns as |column|}}
+          {{row.cell
+            column=column
+          }}
+        {{/each}}
+      {{/body.row}}
+    {{/each}}
+  {{/table.body}}
+
+
+
+{{/models-table}}
+
+{{pagination-pager
+  current=page
+  count=count
+  class="common-table__pager"
+}}
+
+
+{{!--
+{{#models-table
+  data=data
+  columns=columns
+  useNumericPagination=true
+  pageSize=pageSize
+  metaItemsCountProperty=metaItemsCountProperty
+  metaPagesCountProperty=metaPagesCountProperty
+  pageSizeValues=pageSizeValues
+  useFilteringByColumns=true
+as |mt|
+}}
+
+  {{mt.table}}
+
+{{/models-table}}
+
+{{pagination-pager
+  current=page
+  count=count
+  class="common-table__pager"
+}}
+
+--}}

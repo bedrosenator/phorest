@@ -2,10 +2,14 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'forest',
+    modulePrefix: 'phorest',
     environment,
+    podModulePrefix: 'phorest/pods',
     rootURL: '/',
     locationType: 'auto',
+    apiHost: 'http://api-gateway-dev.phorest.com/third-party-api-server/api/business/',
+    businessId: 'eTC3QY5W3p_HmGHezKfxJw',
+    branchId: 'SE-J0emUgQnya14mOGdQSw',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -20,7 +24,12 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+    dateFormats: {
+      outputFormat: 'MM-DD-YYYY',
+      inputFormat: 'YYYY-MM-DD HH:mm:ssZ',
+      flatpickrFormat: 'Y-m-d',
+    },
   };
 
   if (environment === 'development') {

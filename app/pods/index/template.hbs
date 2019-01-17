@@ -1,0 +1,26 @@
+<div class="header">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6">
+      <div class="form-group">
+        <label>Search by email</label>
+        {{input class="form-control" type="text" value=email}}
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6">
+      <div class="form-group">
+        <label>Search by phone number</label>
+        {{input class="form-control" type="text" value=phone}}
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ui/common-table
+  data=clients.data
+  columns=clientsTableColumns
+  pageSize=pageSize
+  pageSizeValues=pageSizeValues
+  useFilteringByColumns=false
+  count=clients.meta.totalPages
+  page=page
+}}
