@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { A } from '@ember/array'
+import { task, timeout } from 'ember-concurrency';
 
 export default Controller.extend({
   isModalVisible: false,
@@ -106,5 +107,10 @@ export default Controller.extend({
   metaPagesCountProperty: 'totalPages',
   pageSize: 10,
   pageSizeValues: A([10, 20, 30]),
+
+  changeEmail: task(function* (string) {
+    yield timeout(800);
+    this.set('email', string);
+  }).restartable(),
 
 });

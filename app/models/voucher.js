@@ -2,7 +2,7 @@ import DS from 'ember-data';
 import moment from 'moment';
 
 export default DS.Model.extend({
-  // clientId: "WwEaIb0m4bhJphVtm2VgIw",
+  clientId: DS.attr('string'),
   voucherId: DS.attr('string'),
   creatingBranchId: DS.attr('string'),
   expiryDate: DS.attr('string', { defaultValue: moment().format() }),

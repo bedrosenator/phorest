@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import ENV from 'phorest/config/environment';
+import EmberObject from '@ember/object';
 import moment from 'moment';
 import { Promise } from 'rsvp';
 
@@ -22,27 +23,48 @@ export default Route.extend({
   },
 
   actions: {
-    createVoucher(client, voucherFormData, number, closeModalAction) {
-      if (number < 1) {
+    createVoucher(client, voucherFormData, vouchersNumber, closeModalAction, multiAccount) {
+      if (!vouchersNumber || vouchersNumber < 1) {
         return;
       }
 
+      let multiClientsIds = [];
       let vouchers = [];
-      const voucherData = {
+      let voucherData = {};
+
+      if (multiAccount) {
+        multiClientsIds = this.get('controller.clients.data')
+          .filterBy('email', client.get('email'))
+          .map((client) => {
+            return client.get('clientId');
+          })
+      }
+
+      voucherData = EmberObject.create({
         creatingBranchId: client.get('creatingBranchId'),
         clientId: client.get('clientId'),
         originalBalance: voucherFormData.get('originalBalance'),
         remainingBalance: voucherFormData.get('remainingBalance'),
         issueDate: moment(voucherFormData.get('issueDate')['0']).utc().format(),
         expiryDate: moment(voucherFormData.get('expiryDate')['0']).utc().format(),
-      };
+      });
 
-      for (let i = 0; i < number; i++) {
-        const voucher = this.get('store').createRecord('voucher', voucherData);
-        const voucherPromise = new Promise((resolve) => {
-          resolve(voucher.save());
-        });
-        vouchers.pushObject(voucherPromise);
+
+      if (!multiAccount && multiClientsIds.length < 1) {
+        for (let i = 0; i < vouchersNumber; i++) {
+          let voucherPromise = this.createVouchersModelPromise(voucherData);
+          vouchers.pushObject(voucherPromise);
+        }
+      }
+
+      if (multiClientsIds.length > 1) {
+        for (let i = 0; i < vouchersNumber; i++) {
+          for (let j = 0; j < multiClientsIds.length; j++) {
+            voucherData.set('clientId', multiClientsIds[j]);
+            let voucherPromise = this.createVouchersModelPromise(voucherData);
+            vouchers.pushObject(voucherPromise);
+          }
+        }
       }
 
       Promise.all(vouchers)
@@ -50,6 +72,15 @@ export default Route.extend({
           closeModalAction();
         })
     },
+  },
+
+  createVouchersModelPromise(voucherData) {
+    const voucher = this.get('store').createRecord('voucher', voucherData);
+    const voucherPromise = new Promise((resolve) => {
+      resolve(voucher.save());
+    });
+
+    return voucherPromise;
   },
 
   model(params) {
