@@ -1,12 +1,9 @@
 import Route from '@ember/routing/route';
-import ENV from 'phorest/config/environment';
 import EmberObject from '@ember/object';
 import moment from 'moment';
 import { Promise } from 'rsvp';
 
 export default Route.extend({
-  outputDateFormat: ENV.dateFormats.outputFormat,
-  inputDateFormat: ENV.dateFormats.inputFormat,
   queryParams: {
     page: {
       refreshModel: true,

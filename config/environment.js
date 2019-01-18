@@ -28,7 +28,7 @@ module.exports = function(environment) {
     dateFormats: {
       outputFormat: 'MM-DD-YYYY',
       inputFormat: 'YYYY-MM-DD HH:mm:ssZ',
-      flatpickrFormat: 'Y-m-d',
+      flatpickrFormat: 'Y-m-d H:m:sZ',
     },
   };
 

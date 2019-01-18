@@ -1,15 +1,15 @@
-<div class="header">
+<div class="header clients-header">
   <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6">
       <div class="form-group">
         <label>Search by email</label>
-        <input class="form-control" type="text" value={{email}} oninput={{perform changeEmail value='target.value'}}>
+        <input class="form-control clients-header__email-input" type="text" value={{email}} oninput={{perform changeEmail value='target.value'}}>
       </div>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6">
       <div class="form-group">
         <label>Search by phone number</label>
-        {{input class="form-control" type="text" value=phone}}
+        {{input class="form-control clients-header__phone-input" type="text" value=phone}}
       </div>
     </div>
   </div>
@@ -23,4 +23,5 @@
   useFilteringByColumns=false
   count=clients.meta.totalPages
   page=page
+  class="clients-table"
 }}

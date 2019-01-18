@@ -3,76 +3,12 @@
 {{/bs-button}}
 
 {{#if isModalVisible}}
-  {{#bs-modal  as |modal|}}
-    {{#modal.header}}
-      <h4 class="modal-title">
-        <i class="glyphicon glyphicon-send"></i> Would you like to create voucher for {{record.email}} ?
-      </h4>
-
-    {{/modal.header}}
-    {{#modal.body}}
-
-      <div class="form-group">
-        <label>Number of vouchers</label>
-        {{input type="number" class="form-control" value=number placeholder="Number of vouchers"}}
-      </div>
-
-      <div class="form-group">
-        <label>Original Balance</label>
-
-        {{input type="number" class="form-control" value=voucher.originalBalance placeholder="Original Balance"}}
-      </div>
-
-      <div class="form-group">
-        <label>Remaining Balance</label>
-        {{input type="number" class="form-control" value=voucher.remainingBalance placeholder="Remaining Balance"}}
-      </div>
-
-      <div class="form-group">
-        <label>Issue Date</label>
-        {{ember-flatpickr
-          allowInput=false
-          altInput=true
-          altInputClass='my-alt-input'
-          clickOpens=true
-          date=(readonly voucher.issueDate)
-          dateFormat=inputDateFormat
-          class="form-control"
-          onChange=(action (mut voucher.issueDate))
-        }}
-      </div>
-
-      <div class="form-group">
-        <label>ExpiryDate Date</label>
-        {{ember-flatpickr
-          allowInput=false
-          altInput=true
-          altInputClass='my-alt-input'
-          clickOpens=true
-          date=(readonly voucher.expiryDate)
-          dateFormat=inputDateFormat
-          class="form-control"
-          onChange=(action (mut voucher.expiryDate))
-        }}
-      </div>
-
-    {{/modal.body}}
-
-    {{#modal.footer as |footer|}}
-
-      {{#if (gt clientsAccounts.length 1)}}
-        <h5><i class="glyphicon glyphicon-alert"></i> We have found more than one accounts connected to your email!</h5>
-        <div class="form-group">
-        <div>
-          <label>Create vouchers for the all found accounts?
-            {{input type="checkbox" checked=multiAccount placeholder="Remaining Balance"}}
-          </label>
-        </div>
-        </div>
-      {{/if}}
-
-      {{#bs-button onClick=(action modal.close) type="danger"}}Oh no, forget it!{{/bs-button}}
-      {{#bs-button onClick=(route-action "createVoucher" record voucher number modal.close multiAccount) type="success"}}Yeah!{{/bs-button}}
-    {{/modal.footer}}
-  {{/bs-modal}}
+  {{ui/modals/voucher-modal
+    number=number
+    voucher=voucher
+    multiAccount=multiAccount
+    clientsAccounts=clientsAccounts
+    record=record
+  }}
 {{/if}}
+
